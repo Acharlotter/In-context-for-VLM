@@ -169,21 +169,3 @@ bash open_flamingo/scripts/run_vqav2.sh
 ```
 
 Before running the above file, you have to run the **retrieval/img2img_clip_style.py** to get the **"validation_xxx.npy"** retrival results file which is used in [eval/eval_datasets.py](https://github.com/GaryJiajia/OFv2_ICL_VQA/blob/caf62954f6ffce8599131d32f2a982a43681bd1c/open_flamingo/eval/eval_datasets.py#L24-L32). For more details, you can see the answer in this [issue](https://github.com/GaryJiajia/OFv2_ICL_VQA/issues/1#issuecomment-1888536124).
-
-
-If you need to use different retrieval methods, you can change the parameters of `control_signals` in `open_flamingo/eval/evaluate_vqa.py`.
-``` python
-control_signals = {"clip": True, # If clip==False, it means the RS.
-                   "retrieval_name": args.retrieval_name, # The results file name.
-                   "retrieval_type": "SI", # Name of retrieval methods. SI/SQ/SI_Q...
-                   "mismatch_type":"normal", # The mismatch type:answer/image/question/question-answer.
-                   "specification": False, # Add the instruction.
-                   "declaration": False, # Add the declarative sentence into the demonstrations.
-                   "add_declaration": False,  # Add the declarative sentence into the demonstrations.
-                   "gauss": True, # Blur the query image.
-                   "None_ICE":False, # In 0-shot setting, should we offer demonstration for the Model.
-                   "order": "order"} # The order of the demonstrations. order/reverse
-```
-
-# Acknowledgments
-This code is based on [the second version of OpenFlamingo](https://github.com/mlfoundations/open_flamingo).
