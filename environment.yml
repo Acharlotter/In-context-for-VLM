@@ -1,10 +1,43 @@
-name: ofv2
+name: qw25
 channels:
+  - conda-forge
   - defaults
+
 dependencies:
-  - python=3.9
-  - conda-forge::openjdk
+  # ===== 基础 =====
+  - python=3.10
   - pip
+  - setuptools
+  - wheel
+
+  # ===== 常用科学计算（conda 装更稳）=====
+  - numpy
+  - scipy
+  - pillow
+  - tqdm
+
+  # ===== NLP / Eval 依赖 =====
+  - nltk
+
   - pip:
-    - -r requirements.txt
-    - -e .
+      # ===== PyTorch（⚠️ 不写 +cuXXX，让 pip 自己选）=====
+      - torch
+      - torchvision
+
+      # ===== HuggingFace / Qwen =====
+      - transformers>=4.40
+      - accelerate
+      - safetensors
+      - sentencepiece
+      - einops
+
+      # ===== 数据集 =====
+      - datasets
+
+      # ===== OKVQA / COCO Eval =====
+      - pycocotools
+      - pycocoevalcap
+
+      # ===== 其它常用 =====
+      - regex
+      - requests

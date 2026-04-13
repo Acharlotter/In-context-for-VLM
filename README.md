@@ -1,9 +1,11 @@
-# In-Context Learning for VQA on OFv2
+# In-Context Learning for VQA with Qwen2.5-VL
 
-The repository for our paper:
+Adapted version using **Qwen2.5-VL** for Visual Question Answering with In-Context Learning.
+
+Based on the paper:
 **How to Configure Good In-Context Sequence for Visual Question Answering**
 
-<a href='https://github.com/GaryJiajia/OFv2_ICL_VQA'><img src='https://img.shields.io/badge/Project-Page-Green'></a> <a href='https://arxiv.org/pdf/2312.01571'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> <a href='https://openaccess.thecvf.com/content/CVPR2024/html/Li_How_to_Configure_Good_In-Context_Sequence_for_Visual_Question_Answering_CVPR_2024_paper.html'><img src='https://img.shields.io/badge/Page-CVPR-blue'></a>
+<a href='https://github.com/GaryJiajia/OFv2_ICL_VQA'><img src='https://img.shields.io/badge/Original-Project-Green'></a> <a href='https://arxiv.org/pdf/2312.01571'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> <a href='https://openaccess.thecvf.com/content/CVPR2024/html/Li_How_to_Configure_Good_In-Context_Sequence_for_Visual_Question_Answering_CVPR_2024_paper.html'><img src='https://img.shields.io/badge/Page-CVPR-blue'></a>
 
 # Table of Contents
 - [Preparation](#Preparation)
@@ -11,7 +13,7 @@ The repository for our paper:
   * [Datasets](#Datasets)
   * [Model](#Model)
 - [Usage](#usage)
-  * [Demo test](#Demo-test)
+  * [Evaluation](#Evaluation)
   * [Diverse Demonstrations Retrieval Methods](#Diverse-Demonstrations-Retrieval-Methods)
 
 - [Acknowledgments](#acknowledgments)
@@ -19,7 +21,7 @@ The repository for our paper:
 
 
 # Preparation
-we use OpenFlamingo and its framework to implement various retrieval strategies on three different VQA datasets.
+This project uses Qwen2.5-VL with in-context learning to implement various retrieval strategies on three different VQA datasets.
 ## Environment
 Create a conda environment for running the following code. It is used for anonymous submit now, and it will fix in Formal version.
 
@@ -39,24 +41,14 @@ import nltk
 nltk.download('wordnet')
 ```
 ## Model
-**OpenFlamingo** is a multimodal language model that can be used for a variety of tasks. It is trained on a large multimodal dataset (e.g. Multimodal C4) and can be used to generate text conditioned on interleaved images/text. You can read its [blog](https://laion.ai/blog/open-flamingo-v2/) and [code](https://github.com/mlfoundations/open_flamingo) for more information. 
+**Qwen2.5-VL** is a multimodal large language model developed by Alibaba. It combines a vision encoder with a language model for visual understanding and question answering tasks.
 
+For this project, we use **Qwen2.5-VL-7B-Instruct** or **Qwen2.5-VL-3B-Instruct** models. These models have built-in support for:
+- Multi-image understanding
+- In-context learning through chat templates
+- High-quality visual reasoning capabilities
 
-OpenFlamingo combines a pretrained vision encoder and a language model using cross attention layers. In our experiment, we use [OpenFlamingo-9B]() for experiments. which uses pretrained vision encoders from the [OpenCLIP](https://github.com/mlfoundations/open_clip) package, [ViT-L-14](https://huggingface.co/openai/clip-vit-large-patch14), and uses the [MPT-7B](https://huggingface.co/mosaicml/mpt-7b) as the pretrained language models. Initialize the model as above and use the following code.
-``` python
-from open_flamingo import create_model_and_transforms
-
-model, image_processor, tokenizer = create_model_and_transforms(
-    clip_vision_encoder_path="ViT-L-14",
-    clip_vision_encoder_pretrained="openai",
-    lang_encoder_path="anas-awadalla/mpt-7b",
-    tokenizer_path="anas-awadalla/mpt-7b",
-    cross_attn_every_n_layers=4
-)
-
-# grab model checkpoint from huggingface hub
-from huggingface_hub import hf_hub_download
-import torch
+The model can be downloaded from [Hugging Face Hub](https://huggingface.co/Qwen) or [Alibaba ModelScope](https://modelscope.cn/organization/qwen).
 
 checkpoint_path = hf_hub_download("openflamingo/OpenFlamingo-9B-vitl-mpt7b", "checkpoint.pt")
 model.load_state_dict(torch.load(checkpoint_path), strict=False)

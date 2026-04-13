@@ -17,31 +17,33 @@ if __name__ == "__main__":
     #         ]
 
     REQUIREMENTS = [
+        # ===== 纯工具依赖（安全）=====
         "einops",
         "einops-exts",
-        "transformers>=4.28.1",
-        "torch==2.0.1",
-        "torchvision",
         "pillow",
         "more-itertools",
         "datasets",
         "braceexpand",
         "webdataset",
-        "wandb",
         "nltk",
         "scipy",
         "inflection",
-        "sentencepiece==0.1.98",
+
+        # ===== logging / misc =====
+        "wandb",
+
+        # ===== CLIP utils（eval 用）=====
         "open_clip_torch>=2.16.0",
     ]
 
+
     setup(
-        name="open_flamingo",
+        name="icl-qwen-vqa",
         packages=find_packages(),
         include_package_data=True,
-        version="2.0.0",
+        version="1.0.0",
         license="MIT",
-        description="An open-source framework for training large multimodal models",
+        description="In-Context Learning for Visual Question Answering using Qwen2.5-VL",
         long_description=long_description,
         long_description_content_type="text/markdown",
         data_files=[(".", ["README.md"])],
@@ -52,6 +54,6 @@ if __name__ == "__main__":
             "Intended Audience :: Developers",
             "Topic :: Scientific/Engineering :: Artificial Intelligence",
             "License :: OSI Approved :: MIT License",
-            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.11",
         ],
     )
