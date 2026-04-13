@@ -11,8 +11,6 @@ Adapted version using **Qwen2.5-VL** for Visual Question Answering with In-Conte
   * [Evaluation](#Evaluation)
   * [Diverse Demonstrations Retrieval Methods](#Diverse-Demonstrations-Retrieval-Methods)
 
-- [Acknowledgments](#acknowledgments)
-
 
 # Preparation
 This project uses Qwen2.5-VL with in-context learning to implement various retrieval strategies on three different VQA datasets.
